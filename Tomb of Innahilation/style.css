@@ -1,0 +1,248 @@
+*{
+	margin:0;
+	padding:0;
+    box-sizing:border-box;
+   
+  
+}
+
+.container-fluid{
+    background-color:black;
+    font-family: Papyrus;
+    color:white;
+    height:auto;
+    min-height: 100%;
+    width:100%;
+}
+
+#header{
+    text-align: center; 
+    background-color: brown;
+    margin-top:10px;
+}
+
+
+#introStory{
+    text-align: center;
+    margin-top:30px;
+    justify-content: center;
+}
+
+#storyPic{
+    justify-content: center;
+    background-image: url('img/npc/Acererak.jpg');
+    background-size:100%;
+    background-repeat: no-repeat;
+    max-width:300px;
+    width: 300px;
+    min-height:300px;
+    margin:10px;
+    transition: 0.5s;
+}
+
+#storyPic:hover {
+    background-size:110%; 
+}
+#storyPic:after {
+    position:absolute;
+    width:100%;
+    top:50%;
+    right:50%;
+    left:0;
+    bottom:0;
+    white-space: pre-wrap;
+    content:attr(data-text);
+    overflow: hidden;
+    background-color:rgba(0,0,0,0.6);
+    background-size:100%;
+    color:#fff;
+    padding: 0 8px;
+    transition:0.5s;
+    opacity: 0;
+}
+#storyPic:hover:after{
+    opacity: 1;
+    top:0;
+    padding:8px;
+}
+
+#choice{
+    justify-content: center;
+    margin:10px;
+    padding:10px;
+    border-radius: 50%;
+    outline:none;
+}
+
+.buttons{
+
+    width:100px;
+    margin:5px;
+    padding:10px;
+    border-radius: 50%;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+    transition:1s all ease;
+    outline:none;
+    
+
+}
+
+.buttons:hover{
+    box-shadow: 0px 0px 1px 2px white;
+    outline:none;
+}
+
+
+
+
+#storyPic2{
+    
+    max-width:250px;
+    width: 250px;
+    min-height:250px;
+    margin:10px;
+    transition: 0.5s;
+}
+
+#storyPic2:hover {
+    background-size:110%; 
+}
+#storyPic2:after {
+    position:absolute;
+    width:100%;
+    top:50%;
+    right:50%;
+    left:0;
+    bottom:0;
+    white-space: pre-wrap;
+    content:attr(data-text);
+    overflow: hidden;
+    background-color:rgba(0,0,0,0.6);
+    background-size:100%;
+    color:#fff;
+    padding: 0 8px;
+    transition:0.5s;
+    opacity: 0;
+}
+#storyPic2:hover:after{
+    opacity: 1;
+    top:0;
+    padding:8px;
+}
+
+#playerInput{
+    width:40%;
+    height:40px;
+    margin-top:10px;
+    justify-content: center;
+    background-color:black;
+    border-color:rgb(175, 189, 171);
+    border-radius:15px;
+    color:white;
+    font-weight:bold;
+    outline:none;
+}
+
+#talk{
+    min-height:200px;
+    background-color:#c5c5c5;
+    font-size:18px;
+    outline:none;
+}
+
+
+#button-ask {
+    width:150px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+
+    outline:none;
+}
+
+#button-look {
+    width:150px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+
+    outline:none;
+}
+
+#button-go {
+    width:150px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+
+    outline:none;
+}
+
+#button-acuse {
+    width:150px;
+    max-height: 50px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+    outline:none;
+    background-color: brown;
+    color:white;
+}
+
+
+#button-getBookmaker {
+    width:150px;
+    max-height: 50px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+    outline:none;
+    background-color: brown;
+    color:white;
+}
+
+
+#first-button-row{
+    height:auto;
+    margin:auto;
+}
+
+#dino-race{
+    width:auto;
+    height:auto;
+    background-color:lightgrey;
+    color:black;
+}
+
+#dino-race .row{
+    min-height:50px;
+    border-bottom-style: dashed;
+    border-color:black;
+    margin-top:10px;
+    margin:5px;
+
+}
+
+#dino-race input {
+    margin:5px;
+    max-width:100px;
+    max-height:20px;
+    min-width: 100px;
+}
+
+#dino-race button{
+    max-width:100px;
+    max-height:40px;
+}
