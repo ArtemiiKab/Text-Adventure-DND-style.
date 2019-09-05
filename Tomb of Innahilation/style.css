@@ -213,6 +213,19 @@
     color:white;
 }
 
+#button-getBartender {
+    width:150px;
+    max-height: 50px;
+    margin:5px;
+    padding:10px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+    outline:none;
+    background-color: brown;
+    color:white;
+}
+
 
 #first-button-row{
     height:auto;
@@ -243,6 +256,35 @@
 }
 
 #dino-race button{
+    max-width:100px;
+    max-height:40px;
+}
+
+
+#bar{
+    width:auto;
+    height:auto;
+    background-color:lightgrey;
+    color:black;
+}
+
+#bar .row{
+    min-height:50px;
+    border-bottom-style: dashed;
+    border-color:black;
+    margin-top:10px;
+    margin:5px;
+
+}
+
+#bar input {
+    margin:5px;
+    max-width:100px;
+    max-height:20px;
+    min-width: 100px;
+}
+
+#bar button{
     max-width:100px;
     max-height:40px;
 }
