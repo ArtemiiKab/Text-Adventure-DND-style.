@@ -1,11 +1,12 @@
 let player ={
 gold: 100,
-life: 100
+life: 50,
+maxHealth: 100
 }
 
 function getAskButtons(){
     let getButtons = document.querySelector('#button-ask');
-    getButtons.innerHTML = '<button class="col" id="ask-name" onclick="askName()">Name</button><button class ="col" id="ask-rumor" onclick="askRumor()">Rumor</button><button class = "col" id="quest" onclick="askQuest()">Quest</button><button class="col" id="reward" onclick="askReward()">Reward</button><button class="col" id="back" onclick="buttonBack()">Back</button>';
+    getButtons.innerHTML = '<button class="col" id="ask-name" onclick="askName()">Name</button><button class ="col" id="ask-rumor" onclick="askRumor()">Rumor</button><button class = "col" id="quest" onclick="askQuest()">Quest</button><button class="col" id="back" onclick="buttonBack()">Back</button>';
     if (currentNpc === Beggar&& currentLocation !== Tavern){
         player.gold -= 5;
         talk.innerHTML += "\n\n ...You've lost 5 gold to the beggar";
@@ -66,14 +67,9 @@ function askQuest(){
     function respond4(){
         if(currentNpc.quest && currentNpc.quest.isDone===false&&currentNpc.quest.isActive===false){
          talk.innerHTML += "\n - "+ currentNpc.quest.text;
-         currentQuest = currentNpc.quest;
-         currentQuest.isActive = true;
-
-            if(currentNpc === Samdarag){
-            FindThief.thief = Ove;
-            let getAcuseButton = document.querySelector('#choice');
-            getAcuseButton.innerHTML += '<div id="button-acuse"><button class ="col" onclick ="arrest()">Arrest</button></div>';
-            };
+        
+         let getTakeQuestButton = document.querySelector('#button-ask');
+        getTakeQuestButton.innerHTML = '<button class ="col" onclick ="askReward()">Reward</button><button class ="col" onclick="acceptQuest()">Accept</button><button class="col" id="back" onclick="buttonBack()">Back</button>';  
         
             if(currentNpc === Valaisis){
             talk.innerHTML += "\n ...Suddenly you feel a firing pain on your cheek and your eyes flash for a moment "; 
@@ -88,6 +84,28 @@ function askQuest(){
             talk.innerHTML += "\n - I don't have any missions for you now.";
         }     
     }
+    
+}
+
+function acceptQuest(){
+    currentQuest = currentNpc.quest;
+    currentQuest.isActive = true;
+    let talk = document.querySelector("#talk"); 
+    talk.innerHTML += "\n\n -Good, " + currentQuest.reward;
+    
+// ....................................Find Thief ..............................................
+if(currentNpc === Samdarag){
+    FindThief.thief = Ove;
+    let getAcuseButton = document.querySelector('#choice');
+    getAcuseButton.innerHTML += '<div id="button-acuse"><button class ="col" onclick ="arrest()">Arrest</button></div>';
+    };
+//...........................BlackMarket rescue from jail........................................
+    document.getElementById('go-button').disabled = false;
+//................................Drinking Contest...............................................
+    if(DrinkingContest.isActive){
+        player.vodkaCount = 0;
+    }
+    buttonBack();
 }
 
 function askReward(){
@@ -99,15 +117,8 @@ function askReward(){
                 talk.innerHTML += "\n ...Suddenly you feel a firing pain on your cheek and your eyes flash for a moment "; 
                 talk.innerHTML += "\n You receive 8 damage from a giant dwarven hand.";
                 player.health -= 8;
-             }
-
-             if(currentQuest.isActive && currentQuest === currentNpc.quest){
+             }  
             talk.innerHTML += "\n - "+ currentNpc.quest.reward;
-//...........................BlackMarket rescue from jail........................................
-            document.getElementById('go-button').disabled =false;
-        }else{
-            talk.innerHTML += "\n - A reward? For what?";
-        }
     }   
 }
 //......................................................................................................
@@ -177,6 +188,7 @@ function goNorth(){
 }
 
 function goSouth(){
+    buttonBack();
     if (currentLocation === Port){
         talk.innerHTML += '\n\n...You can not go back on a ship until you find out what is a source of the curse';
     }else{
@@ -184,21 +196,24 @@ function goSouth(){
     currentNpc = currentLocation.npc;
     changeLocPic(currentLocation, currentLocation.currentSituation);
     };
-    buttonBack();
+   
 }
 
 function goWest(){
+    buttonBack();
     currentLocation = currentLocation.west;
     currentNpc = currentLocation.npc;
     changeLocPic(currentLocation, currentLocation.currentSituation);
-    buttonBack();
+    
 }
 
 function goEast(){
+
+    buttonBack();
     currentLocation = currentLocation.east;
     currentNpc = currentLocation.npc;
     changeLocPic(currentLocation, currentLocation.currentSituation);
-    buttonBack();
+  
 }
 //.............................Quest buttons and functions.........................
 
@@ -317,4 +332,113 @@ function bet4(){
     }
     getBookmaker();
 }
-//......................................................................................................
+//............................................Bartender.........................................................    
+function displayBartenderButton(){
+    let getBartenderButton = document.querySelector('#choice');
+        getBartenderButton.innerHTML += '<div id="button-getBartender"><button class ="col" onclick ="getBartender()">Bartender</button></div>';     
+}
+
+function getBartender(){
+        currentNpc = Jacob;
+        let newDisplay =  document.querySelector('#introStory');
+        newDisplay.innerHTML = '<div  class = "col-6" id="storyPic2" data-text="'+currentNpc.data_text+'"></div><div class = "col-6" id="bar"><div class ="row"><div class = "col"> Dwarven Beer</div><div class="col">Price: 5 gold </div><input type="number" min="1" max="'+player.gold/5+'" class = "col" value="1" step="1" id="barInput1" ><button class ="col" onclick="order1()">Buy</button></div><div class ="row"><div class = "col">Goblin Vodka "Goblevo"</div><div class="col">Price: 2 gold </div><input type="number" min="1" max="'+player.gold/2+'" class = "col" value="1" step="1" id="barInput2"><button class ="col" onclick="order2()" >Buy</button></div><div class ="row"><div class = "col">Elven Wine "Tal Dorini"</div><div class="col">Price: 10 gold</div><input type="number" min="1" max="'+player.gold/10+'" class = "col" value="1" step="1" id="BarInput3"><button class ="col" onclick="order3()">Buy</button></div></div></div>'
+        let getBar = document.querySelector('#bar');
+        getBar.innerHTML += '<div class ="row"><textarea readonly class = "col-12" id="talk">  - Do you want anything?</textarea></div>'
+        displayNpc();
+        buttonBack();
+            let getBartenderButton = document.querySelector('#choice');
+            getBartenderButton.innerHTML += '<div id="button-getBartender"><button class ="col" onclick ="changeLocPic(currentLocation, currentLocation.currentSituation)">Back</button></div>';  
+
+}
+
+
+function order1(){
+    let talk = document.querySelector("#talk");
+    let order = document.querySelector('#barInput1').value;
+    if(player.gold >= 5*order){
+    player.gold -= 5*order;
+    if(player.life !== player.maxHealth){
+        player.life += Math.floor(Math.random()*9 + 1)*order;
+        if(player.life > player.maxHealth){
+            player.life = player.maxHealth;
+        }
+    }
+    getBartender(); 
+    let talk = document.querySelector("#talk");
+    talk.innerHTML += "\n\n...You've drank Dwarfen Beer, your health total is now: "+player.life;
+    }
+    talk.innerHTML += "\n\n - You don't have enough gold with you for this order."
+}
+
+function order2(){
+    let talk = document.querySelector("#talk");
+    let order = document.querySelector('#barInput2').value;
+    if(player.gold >= 2*order){
+    player.gold -= 2*order;
+//.................................Drinking Contest Progress.............................................
+    if(DrinkingContest.isActive){
+        player.vodkaCount+order;
+        alert(player.vodkaCount)
+        if(player.life>0 && player.vodkaCount >= 10){
+            DrinkingContest.isDone = true;
+            player.gold += 100;
+        }
+    }
+    let ifHealed = Math.floor(Math.random()*2)
+    if (ifHealed === 0){
+    player.life += Math.floor(Math.random()*19 + 1)*order;
+    } else {
+    player.life -= Math.floor(Math.random()*19 + 1)*order;
+    }
+    if(player.life > player.maxHealth){
+            player.life = player.maxHealth;
+        }
+    
+    getBartender(); 
+    let talk = document.querySelector("#talk");
+    talk.innerHTML += "\n\n...You've drank Goblin Vodka,it tastes like "+randomTaste()+" and your health total is now: "+player.life;
+    }
+    talk.innerHTML += "\n\n - You don't have enough gold with you for this order."
+    if(DrinkingContest.isDone && DrinkingContest.isActive){
+        DrinkingContest.isActive = false;
+        let talk = document.querySelector("#talk");
+        talk.innerHTML +="\n\n - Oh ho ho! It seems that you are tougher then I thought of you! Here is your gold!";
+    }
+}
+
+function order3(){
+    let talk = document.querySelector("#talk");
+    let order = document.querySelector('#barInput3').value;
+    if(player.gold >= 10*order){
+    player.gold -= 10*order;
+    if(player.life !== player.maxHealth){
+        player.life += 10*order;
+        if(player.life > player.maxHealth){
+            player.life = player.maxHealth;
+        }
+    }
+    getBartender(); 
+    let talk = document.querySelector("#talk");
+    talk.innerHTML += "\n\n...You've drank Elven wine, your health total is now: "+player.life;
+    }
+    talk.innerHTML += "\n\n - You don't have enough gold with you for this order."
+}
+
+function randomTaste(){
+    let taste;
+    let randomize = Math.floor(Math.random()*4);
+    switch (randomize) {
+        case 0:
+        taste ="literally dragon fire"
+        break;
+        case 1:
+        taste = "cow poop" 
+        break; 
+        case 2:
+        taste ="orcish socks"
+        break;
+        case 3:
+        taste ="rainbow and flowers"
+    }
+    return taste
+}
